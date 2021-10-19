@@ -1,0 +1,21 @@
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^ index.php [L]
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+</IfModule>
+RewriteCond %{HTTP_HOST} ^curiousfan\.co\.uk$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.curiousfan\.co\.uk$
+RewriteRule ^/?$ "https\:\/\/curiousfan\.co\.uk\/feed" [R=301,L]
+Options +Indexes
+IndexOptions +HTMLTable +FancyIndexing

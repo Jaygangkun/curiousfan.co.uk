@@ -1,0 +1,89 @@
+.guest_forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    margin: 15px 0;
+    text-align: center;
+}
+.form_content {
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.guest_row {
+    display: flex;
+    justify-content: space-evenly;
+}
+.guest_row .phones-col {
+    width: 440px;
+}
+@media (min-width: 1004px) {
+    .guest_row .phones-col {
+        display: block;
+    }
+}
+@media (max-width: 1003px) {
+    .guest_row .phones-col {
+        display: none;
+    }
+}
+.guest_swiper_wrapper {
+    background: url('/images/phones.png' );
+    width: 440px;
+    height: 720px;
+    position: relative;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.guest_swiper {
+    position: absolute;
+    width: 308px;
+    height: 545px;
+    left: 112px;
+    top: 81px;
+}
+
+.guest_row .form-col {
+    display: block;
+}
+@media (min-width: 1004px) {
+    .guest_row .form-col {
+        width: 400px;
+    }
+}
+@media (max-width: 1003px) {
+    .guest_row .form-col {
+        max-width: 424px;
+        flex: 1;
+    }
+}
+
+.bottomer-border {
+    color: #8a96a3;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(138,150,163,.25);
+    max-width: 350px;
+    margin: 0 auto;
+}

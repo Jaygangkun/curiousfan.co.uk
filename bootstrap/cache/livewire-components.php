@@ -1,0 +1,17 @@
+<?php return array (
+  'admin-payment-settings' => 'App\\Http\\Livewire\\AdminPaymentSettings',
+  'browse-creators' => 'App\\Http\\Livewire\\BrowseCreators',
+  'creators-sidebar' => 'App\\Http\\Livewire\\CreatorsSidebar',
+  'followbutton' => 'App\\Http\\Livewire\\Followbutton',
+  'message' => 'App\\Http\\Livewire\\Message',
+  'mob-unread-messages-count' => 'App\\Http\\Livewire\\MobUnreadMessagesCount',
+  'notifications-icon' => 'App\\Http\\Livewire\\NotificationsIcon',
+  'notifications-page' => 'App\\Http\\Livewire\\NotificationsPage',
+  'search-creators' => 'App\\Http\\Livewire\\SearchCreators',
+  'unread-messages-count' => 'App\\Http\\Livewire\\UnreadMessagesCount',
+  'user-cards' => 'App\\Http\\Livewire\\UserCards',
+  'user-subscribers-list' => 'App\\Http\\Livewire\\UserSubscribersList',
+  'user-subscriptions-list' => 'App\\Http\\Livewire\\UserSubscriptionsList',
+  'user-blocked-users-list' => 'App\\Http\\Livewire\\UserBlockList',
+  'withdrawals' => 'App\\Http\\Livewire\\Withdrawals',
+);
