@@ -684,8 +684,8 @@ a.nav-link{
 .left-sidebar{
     position: fixed;
     width: 19.2%;
-    padding-right: 40px;
-    padding-left: 40px;
+    /* padding-right: 40px;
+    padding-left: 40px; */
 }
 .right-sidebar{
     position: fixed;
