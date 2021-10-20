@@ -119,7 +119,21 @@
 			}
 		}
 		
-	
+		$(document).on('click', '#sendBecomeCreatorRequestBtn', function() {
+			$.ajax({
+				url: '{{ route("sendBecomeCreatorRequest")}}',
+				type: 'POST',
+				headers: {
+					'X-CSRF-TOKEN': '{{ csrf_token() }}'
+				},
+				data: {
+
+				},
+				success: function() {
+
+				}
+			})
+		})
 	});
 </script>
 @endpush

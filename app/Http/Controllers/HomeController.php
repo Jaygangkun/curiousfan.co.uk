@@ -8,6 +8,7 @@ use App\EmailTemplate;
 use App\Report;
 use App\Profile;
 use App\ReportUser;
+use App\BecomeCreatorRequest;
 use App\Mail\NewContentReportMail;
 
 use Illuminate\Http\Request;
@@ -184,5 +185,18 @@ class HomeController extends Controller
         }
 
 		return response()->json(['users' => $users]);
+    }
+
+    public function sendBecomeCreatorRequest(Request $r) {
+        
+        $becomeCreatorRequest = BecomeCreatorRequest::where('user_id', auth()->user()->id)->first();
+        if(!$becomeCreatorRequest) {
+            $becomeCreatorRequest = new BecomeCreatorRequest();
+        }
+        
+        $becomeCreatorRequest->user_id = auth()->user()->id;
+        $becomeCreatorRequest->save();
+
+        return response()->json(['success' => true]);
     }
 }

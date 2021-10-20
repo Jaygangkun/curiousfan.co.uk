@@ -1,7 +1,7 @@
 <div class="col-12 col-md-3 mb-4  d-none d-sm-none d-md-none d-lg-block">
 	{{-- @livewire('creators-sidebar') --}}
 	<div class="sticky-top">
-		<div class="card left-sidebar">
+		<div class="card left-sidebar1">
 			<a class="mycount-icon" href="{{  route('accountSettings') }}" data-toggle="tooltip" title="@lang('navigation.account')">
 				<i class="fas fa-cog fa-2x"></i>
 			</a>
@@ -36,5 +36,16 @@
 				</div>
 			</div>
 		</div>
+		@if(auth()->user()->isCreating == 'No')
+			<div class="card mt-3">
+				<div class="card-header">BECOME A CREATOR</div>
+				<div class="card-body">
+					<p>Build a membership for your fans and get paid to create on your own terms.</p>
+					<div class="text-center">
+						<button id="sendBecomeCreatorRequestBtn" class="btn btn-primary" style="padding: 5px 20px 5px 20px; font-size: 16px; border-radius: 16px;">Send Request</button>
+					</div>
+				</div>
+			</div>
+		@endif
 	</div>
 </div>

@@ -1,8 +1,5 @@
 <div class="top-navbar-search">
-    <div class="p-relative" style="
-    display: flex;
-    justify-content: center;
-    align-items: center;">
+    <div class="p-relative top-navar-search-wrap">
 <!--  <a style="margin-right:10px" href="{{ route('notifications.index') }}" data-count="{{auth()->user()->unreadNotifications()->count()}}" class="text-dark m_n_c">
       <i class="fas fa-bell mr-1"></i>
       <small class="text-danger text-bold mob_notification" data-count="{{auth()->user()->unreadNotifications()->count()}}">{{auth()->user()->unreadNotifications()->count()}}</small>
@@ -32,8 +29,8 @@
         </script>
 
 -->
-
-        <input class="form-control mr-sm-2 topSearch" type="search" placeholder="@lang('general.searchCreator')" aria-label="Search" wire:model.debounce.200ms="search">
+        <span class="search-icon-wrap"><i class="fas fa-search"></i></span>
+        <input class="form-control1 mr-sm-2 topSearch" type="search" placeholder="@lang('general.searchCreator')" aria-label="Search" wire:model.debounce.200ms="search">
         <div class="search-spinner" wire:loading>
             <i class="fas fa-spinner fa-spin"></i>
         </div>

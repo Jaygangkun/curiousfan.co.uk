@@ -44,6 +44,8 @@ Route::group(['middleware' => 'App\Http\Middleware\CheckForMaintenance'], functi
     //User for post user tag
     Route::get('get-users', 'HomeController@getUsers')->name('getUsers');
 
+    Route::post('send-become-creator-request', 'HomeController@sendBecomeCreatorRequest')->name('sendBecomeCreatorRequest');
+
     // User Profile
     Route::get('my-profile', 'ProfileController@create')->name('startMyPage');
     Route::post('profile/update', 'ProfileController@store')->name('storeMyPage');
@@ -64,6 +66,7 @@ Route::group(['middleware' => 'App\Http\Middleware\CheckForMaintenance'], functi
     Route::get('profile/updateProfilePic', 'ProfileController@profilePicGet');
     Route::post('profile/profileImageUpdate', 'ProfileController@saveProfilePic');
     Route::post('profile/coverImageUpdate', 'ProfileController@saveProfilePic');
+
 
     // Billing
     Route::get('billing/history', 'BillingController@history')->name('billing.history');
@@ -349,6 +352,10 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function (
     Route::get('admin/block-report-users', 'Admin@reportUsers');
     Route::get('admin/block-report-users/delete/{id}', 'Admin@destroyReportUser');
 
+    //Become Creator Requests
+    Route::get('admin/become-creator-requests', 'Admin@becomeCreatorRequests');
+    Route::post('admin/become-creator-request-approve', 'Admin@becomeCreatorRequestApprove')->name('becomeCreatorRequestApprove');
+    Route::post('admin/become-creator-request-decline', 'Admin@becomeCreatorRequestDecline')->name('becomeCreatorRequestDecline');
 });
 
 

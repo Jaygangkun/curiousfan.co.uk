@@ -83,6 +83,9 @@
         <li @if(isset($active) AND ($active == 'block-report-users')) class="active" @endif>
           <a href="/admin/block-report-users"><i class="fa pull-right hidden-xs showopacity fa-user-times"></i> <span>Block Report Users</span></a>
         </li>
+        <li @if(isset($active) AND ($active == 'become-creator-requests')) class="active" @endif>
+          <a href="/admin/become-creator-requests"><i class="fa pull-right hidden-xs showopacity fa-user-times"></i> <span>Become Creator Requests</span></a>
+        </li>
         <li @if(isset($active) AND ($active == 'website-messages')) class="active" @endif>
           <a href="/admin/website-messages"><i class="fa pull-right hidden-xs showopacity fa-envelope-open"></i> <span>Website Messages</span></a>
         </li>

@@ -17,6 +17,7 @@ use App\Profile;
 use App\Category;
 use App\Withdraw;
 use App\ReportUser;
+use App\BecomeCreatorRequest;
 use Carbon\Carbon;
 use App\Subscription;
 use Illuminate\Support\Facades\Hash;
@@ -1527,5 +1528,49 @@ class Admin extends Controller
         $e = ReportUser::find($id);
         $e->delete();
         return redirect('admin/block-report-users')->with('msg', 'Report data deleted.');
+    }
+
+    public function becomeCreatorRequests(Request $r){
+        $active = 'become-creator-requests';
+
+        $becomeCreatorRequests = BecomeCreatorRequest::with('user')->get();
+        		
+        return view('admin.become-creator-requests', compact('active', 'becomeCreatorRequests'));
+    }
+
+    public function becomeCreatorRequestApprove(Request $r) {
+        
+        $user = User::where('id', $r->userId)->first();
+        if($user) {
+            $user->isCreating = 'Yes';
+            $user->save();
+
+            $becomeCreatorRequest = BecomeCreatorRequest::where('id', $r->requestId)->first();
+            if ($becomeCreatorRequest) {
+                $becomeCreatorRequest->update(['approved' => 'Yes']);
+
+                return response()->json(['success' => true]);
+            }
+        }
+        
+        return response()->json(['success' => false]);
+    }
+
+    public function becomeCreatorRequestDecline(Request $r) {
+        
+        $user = User::where('id', $r->userId)->first();
+        if($user) {
+            $user->isCreating = 'No';
+            $user->save();
+
+            $becomeCreatorRequest = BecomeCreatorRequest::where('id', $r->requestId)->first();
+            if ($becomeCreatorRequest) {
+                $becomeCreatorRequest->update(['approved' => 'No']);
+
+                return response()->json(['success' => true]);
+            }
+        }
+        
+        return response()->json(['success' => false]);
     }
 }

@@ -509,9 +509,6 @@ background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)
     overflow: scroll;
 }
 .search-spinner {
-    position: absolute; 
-    top: 6px; 
-    right: 10px;
 }
 .website-header {
     margin-top: -60px;
@@ -833,4 +830,25 @@ a.nav-link{
 div:empty:before {
     content:attr(data-placeholder);
     color:gray
+}
+
+.top-navar-search-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f4f2;
+    border-radius: 30px;
+    padding: 10px 20px;
+}
+
+.top-navar-search-wrap input {
+    background: transparent;
+    flex-grow: 1;
+    border: 0px;
+    outline: none;
+}
+
+.top-navar-search-wrap .search-icon-wrap {
+    color: #7f7f7f;
+    margin-right: 10px;
 }
