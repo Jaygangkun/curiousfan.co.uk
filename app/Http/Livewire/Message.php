@@ -22,7 +22,7 @@ class Message extends Component
     public $messages;
     public $message;
     public $toName;
-    public $toUserId;
+    public $toUserId = null;
     public $toUserProfileImage;
     public $lockType = 'Free';
     public $unlockPrice;
@@ -33,6 +33,8 @@ class Message extends Component
     public $zips = '';
     public $mobileProfileId;
     public $unreadMessageCount;
+    public $massMessage;
+    public $massMessageUsers;
 
     protected $listeners = ['scrollTolast', 'emojioneArea'];
 
@@ -291,6 +293,7 @@ class Message extends Component
             ->get()
             ->unique('from_id');
 
+        $this->massMessageUsers = $people;
         return view('livewire.message', compact('people', 'messages', 'unreadMsg','m'));
     }
 
@@ -344,4 +347,30 @@ class Message extends Component
 
         return $unread;
     }
+    public function sendMassMessage()
+    {
+
+        // add the new msg to db
+        foreach($this->massMessageUsers as $user ) {
+            $msg = new Msg;
+            $msg->from_id = auth()->id();
+            $msg->to_id = $user->id;
+            $msg->message = $this->massMessage;
+            $msg->save();
+        }
+
+        $this->massMessage = '';
+       // refresh message list
+       if ($this->toUserId != null) {
+        $this->messages = $this->getMessages($this->toUserId);
+        // clean livewire directory       
+
+        $this->emit('scroll-to-last');
+        $this->emit('reset-message');
+        $this->emit('emoji_attached');
+       }
+
+       $this->emit('sent-mass-message');
+    }
+
 }

@@ -1,7 +1,17 @@
 <div>
-    <h3 class="title">
-    <i class="far fa-envelope"></i> @lang('messages.messages')
-</h3>
+    <div class="alert alert-success alert-dismissible" id="massMessageAlertSuccess" style="display:none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        Success Sent!
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="title mb-0">
+            <i class="far fa-envelope"></i> @lang('messages.messages')
+        </h3>
+        @if(auth()->user()->isCreating == 'Yes')
+            <button class="btn btn-primary" data-toggle="modal" data-target="#massMessagesPopup"> @lang('messages.massMessagesButton')</button>
+        @endif
+        
+    </div>
 <div class="card">
     <div class="row d-flex d-md-none">
         <div class="col-md-12">
@@ -49,6 +59,12 @@
             background: #4caf50;
         }
         .profilePicXS {width:50px;height:50px;}
+
+        .massMessagesList {
+            max-height: 402px;
+            overflow: auto;
+            margin-bottom: 20px;
+        }
     </style>
     @forelse($people as $p)
     <div class="row no-gutters pt-2 pb-2 border-top" wire:click="clickConversation({{ $p->id }})" style="cursor:pointer;@if($toUserId == $p->id)background: #eee;@endif">
@@ -315,4 +331,80 @@
 @endif
 
 </div><!-- ./row -->
+<div class="modal fade" id="massMessagesPopup" tabindex="-1" aria-labelledby="massMessagesPopupLabel" aria-hidden="true" wire:ignore>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="massMessagesPopupLabel">@lang('messages.massMessagesPopupTitle')</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="massMessagesList">
+                @forelse($people as $p)
+                    <div class="row no-gutters pt-2 pb-2 border-top">
+                        <div class="col-12 col-sm-12 col-md-2">
+                            <div class="profilePicXS mt-0 ml-0 mr-2 ml-2 shadow-sm">
+                                <span class="select-message-user @if($p->isOnline()) profilePicOnline @else profilePicOffline @endif">
+                                    <img src="{{  $p->profile->profilePicture }}" alt="" width="50" height="50" class="select-message-user">
+                                </spsan>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-10">
+                            <span class="d-none d-sm-none d-md-block text-dark select-message-user">
+                                {{ $p->profile->name }}
+                            </span>
+                            <small>
+                                <span class="text-secondary ml-2 ml-sm-2 ml-md-0 select-message-user">
+                                    {{  $p->profile->handle }} 
+                                </span>
+                                {{-- <p class="ml-2 ml-sm-2 ml-md-0"> --}}
+                                @if(isset($unreadMsg) AND count($unreadMsg) AND $lastMsg = $unreadMsg->where('from_id', $p->id)->first()) 
+                                    @if($lastMsg->is_read == 'No')
+                                        <strong>
+                                            {{ substr($lastMsg->message, 0, 55) }}
+                                            @if(strlen($lastMsg->message) > 55) ... @endif
+                                        </strong>
+                                    @else
+                                        <em>
+                                            {{ substr($lastMsg->message, 0, 55) }}
+                                            @if(strlen($lastMsg->message) > 55) ... @endif
+                                        </em>
+                                    @endif
+                                @endif
+                                {{-- </p> --}}
+                            </small>
+                            {{--@php
+                                $lastMsgC = \App\Message::where([
+                                            ['to_id', auth()->id()],
+                                            ['from_id', $p->id],
+                                            ['is_read', 'No']
+                                        ])->count();
+                            @endphp--}}
+                            @if($this->unreadMessageCount($p->id) > 0)
+                                    <span class="messageNotification">
+                                        {{ $this->unreadMessageCount($p->id) }}
+                                    </span>
+                                    <br>
+                            @endif
+                        </div>
+                    </div>
+                    @empty
+                        @lang('profile.noSubscriptions')
+                @endforelse
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Type a message" wire:model.lazy="massMessage" wire:ignore></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" wire:click="sendMassMessage">Send</span></button>
+            </div>
+        </div>
+    </div>
 </div>
+
+</div>
+

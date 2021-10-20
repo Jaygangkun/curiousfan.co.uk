@@ -68,6 +68,15 @@
         var elem = document.getElementById('message-inp').value = "";
     });
 
+    // close mass message popup field
+    window.livewire.on('sent-mass-message', function () {
+        $('#massMessagesPopup').modal('toggle');
+        // $('#massMessageAlertSuccess').show();
+        $("#massMessageAlertSuccess").fadeTo(2000, 500).slideUp(500, function(){
+            $("#massMessageAlertSuccess").slideUp(500);
+        });
+    });
+
     // scroll to last on switching users
     function hasClass(elem, className) {
         return elem.className.split(' ').indexOf(className) > -1;

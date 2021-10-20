@@ -8,4 +8,6 @@ return [
     'writeAndPressEnter' => 'Write your message and press enter',
     'enterSomething' => 'Enter at least 1 character',
     'newMessages' => 'new',
+    'massMessagesButton'    => 'Mass Message',
+    'massMessagesPopupTitle'    => 'Send message to all Follower/Supporters',
 ];
