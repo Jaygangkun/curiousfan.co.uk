@@ -54,6 +54,13 @@
                             </a>
                         </div>
                     @endif
+                @else
+                    <div class="profile-img-list-item" style="display: none">
+                        <a class="profile-img-list-link" href="javascript:void(0);" data-toggle="lightbox" data-remote="{{ \Storage::disk($extraMedia->disk)->url($extraMedia->media_content) }}" data-gallery="post-{{ $post->id }}">
+                            <span class="profile-img-content" style="background-image: url({{ \Storage::disk($extraMedia->disk)->url($extraMedia->media_content) }})">
+                            </span>
+                        </a>
+                    </div>
                 @endif
             @endforeach
 

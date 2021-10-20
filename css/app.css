@@ -509,6 +509,10 @@ background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)
     overflow: scroll;
 }
 .search-spinner {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .website-header {
     margin-top: -60px;
@@ -842,6 +846,7 @@ div:empty:before {
 }
 
 .top-navar-search-wrap input {
+    font-family: 'Lato', sans-serif;
     background: transparent;
     flex-grow: 1;
     border: 0px;
