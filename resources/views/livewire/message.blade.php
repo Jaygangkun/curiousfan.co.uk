@@ -168,16 +168,18 @@
         @else
             <div class="col-11 mt-3" style="margin-left: auto;">
                 {{--<div class="bg-secondary text-white p-2 rounded-left">--}}
-                    <div class="fromMessage">
-                        <span class="btn delMessageFrom"
-                                onclick="confirm('Are you sure you want to delete this message?') || event.stopImmediatePropagation()"
-                                wire:click="deleteMessage('{{ $msg->id }}', {{ auth()->id() }}, 'receiver')"><i class="fa fa-trash"></i></span>
+                <div class="fromMessage">
                     {{ $msg->message }}
 
                     @if($msg->media->count())
                         <br>
                         @include('messages.message-media', ['media' => $msg->media, 'msg' => $msg, 'utype' => 'fromUser'])
                     @endif
+                    <div class="delMessageFromWrap">
+                        <span class="btn delMessageFrom" onclick="confirm('Are you sure you want to delete this message?') || event.stopImmediatePropagation()" wire:click="deleteMessage('{{ $msg->id }}', {{ auth()->id() }}, 'receiver')">
+                            <i class="fa fa-trash"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="text-right">
                     <div class="text-secondary ml-2" style="z-index: 1;position: absolute;right:20px;font-size:12px;">

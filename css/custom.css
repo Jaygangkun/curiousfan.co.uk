@@ -14,14 +14,11 @@
     bottom: calc(50% - 12px);
 }
 .delMessageFrom{
-    width: 0px;
-    height: 0px;
-    position: inherit;
-    left:-17px;
-    top:calc(50% - 7.5px);
+    position: relative;
     color:#ea4436;
     cursor:pointer;
     opacity:0.4;
+    padding: 0px;
 }
 .delMessage{
     width: 0px;
@@ -338,4 +335,9 @@ img.attachImg{
 }
 img.singleAttachImg{
     width: 75%;
+}
+
+
+.delMessageFromWrap {
+    margin-top: 15px;
 }

@@ -11,7 +11,7 @@
             <style>
                 .paidAttachment{
                     position: absolute;
-                    z-index: 9999;
+                    z-index: 1;
                     width:auto;
                     padding: 0 10px;
                     height:30px;
@@ -39,7 +39,7 @@
                 <style>
                     .freeAttachment{
                         position: absolute;
-                        z-index: 9999;
+                        z-index: 1;
                         width:auto;
                         padding:0 10px;
                         height:30px;
