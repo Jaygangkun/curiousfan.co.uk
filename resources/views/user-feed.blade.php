@@ -5,15 +5,6 @@
 @section( 'content' )
 <div class="white-smoke-bg pt-4 pb-3">
 <div class="container add-padding" >
-	<div class="row">
-		<div class="col-12">
-			<div class="alert alert-success alert-dismissible" id="sendBecomeCreatorRequestSuccess" style="display:none">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<p><strong>Request Sent.</strong></p>
-				<p>You will receive a email when your account have been upgraded. </p>
-			</div>
-		</div>
-	</div>
 <div class="row">
 
 @include('posts.sidebar-mobile', [ 'user' => auth()->user(), 'profile' => auth()->user()->profile ])
@@ -141,9 +132,9 @@
 				dataType: 'json',
 				success: function(resp) {
 					if(resp.success) {
-						$("#sendBecomeCreatorRequestSuccess").fadeTo(2000, 500).slideUp(500, function(){
-							$("#sendBecomeCreatorRequestSuccess").slideUp(500);
-						});
+						alert('Request Sent!');
+						$('#becomeCreatorRequestBox').hide();
+						$('#findCreatorBox').show();
 					}
 				}
 			})

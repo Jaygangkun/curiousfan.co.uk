@@ -37,8 +37,8 @@
 					</div>
 				</div>
 			</div>
-			@if(auth()->user()->isCreating == 'No')
-				<div class="card mt-3">
+			@if($showBecomeCreatorRequestBox)
+				<div class="card mt-3" id="becomeCreatorRequestBox">
 					<div class="card-header">BECOME A CREATOR</div>
 					<div class="card-body">
 						<p>Build a membership for your fans and get paid to create on your own terms.</p>
@@ -48,6 +48,15 @@
 					</div>
 				</div>
 			@endif
+			<div class="card mt-3" id="findCreatorBox" style="@if(!$showFindCreatorBox) display: none @endif">
+				<div class="card-header">FIND CREATORS YOU LOVE</div>
+				<div class="card-body">
+					<p>The creators you already love may be on Patreon - connect your social media to find them.</p>
+					<div class="text-center">
+						<a href="/browse-creators" class="btn btn-primary" style="padding: 5px 20px 5px 20px; font-size: 16px; border-radius: 16px;">Find Creators</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

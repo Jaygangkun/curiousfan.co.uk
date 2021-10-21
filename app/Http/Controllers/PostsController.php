@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Events\PostCreatedOrUpdatedEvent;
 use App\PostMedia;
+use App\BecomeCreatorRequest;
 use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
@@ -35,7 +36,24 @@ class PostsController extends Controller
         // get current user feeds
         $feed = auth()->user()->feed();
 
-        return view('user-feed', compact('feed'));
+        // get become creator request approve if user is not creator
+        $showBecomeCreatorRequestBox = false;
+        if(auth()->user()->isCreating == 'No') {
+            $becomeCreatorRequest = BecomeCreatorRequest::where('user_id', auth()->user()->id)->first();
+            if(!$becomeCreatorRequest) {
+                $showBecomeCreatorRequestBox = true;
+            }
+            else if($becomeCreatorRequest->approved == 'No') {
+                $showBecomeCreatorRequestBox = true;
+            }
+        }
+
+        $showFindCreatorBox = false;
+        if(auth()->user()->isCreating == 'Yes') {
+            $showFindCreatorBox = true;
+        }
+
+        return view('user-feed', compact('feed', 'showBecomeCreatorRequestBox', 'showFindCreatorBox'));
     }
 
     // edit post
