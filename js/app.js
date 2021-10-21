@@ -1,4 +1,4 @@
-window.postMaxSize=1073741824;
+window.postMaxSize=1073741824; // 1G
 window.postTotalSize=0;
 window.totalFileSize=0;
 
@@ -88,10 +88,9 @@ function checkTotalSize(path){
 	
 	console.log('totalSize: '+totalFileSize);
 	
-
 	if(totalFileSize > window.postMaxSize){
 		
-		swal({ title   : '', icon    : 'error', text : 'Your selected files total size ('+bytesToMB(totalFileSize)+'Mb) exceeded max size limit (125Mb).' });
+		swal({ title   : '', icon    : 'error', text : 'Your selected files total size ('+bytesToMB(totalFileSize)+'Mb) exceeded max size limit (1Gb).' });
 		$(path).val('');
 		return;
 	}
