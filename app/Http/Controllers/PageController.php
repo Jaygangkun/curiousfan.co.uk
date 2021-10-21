@@ -12,4 +12,9 @@ class PageController extends Controller
     {
         return view('page', compact('page'));
     }
+
+    public function banned() {
+        $message = opt('bannedUserMessage');
+        return view('banned', compact('message'));
+    }
 }

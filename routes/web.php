@@ -204,7 +204,8 @@ Route::group(['middleware' => 'App\Http\Middleware\CheckForMaintenance'], functi
 Route::get('external-redirect', 'PostsController@externalLinkRedirect')->name('external-url');
 
 // Banned Route
-Route::view('banned', 'banned')->name('banned-ip');
+// Route::view('banned', 'banned')->name('banned-ip');
+Route::get('banned', 'PageController@banned')->name('banned-ip');
 
 // Admin Routes
 Route::any('admin/login', 'Admin@login')->name('adminLogin');

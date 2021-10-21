@@ -24,8 +24,7 @@ class UserLastAuthMiddleware
         
         // check banned ip's
         if (Banned::where('ip', $request->ip())->exists() AND $request->route()->getName() != 'banned-ip') {
-			$b_msg = opt('bannedUserMessage');
-            return redirect(route('banned-ip'))->with('message',$b_msg);
+            return redirect(route('banned-ip'));
             exit;
         }
 
