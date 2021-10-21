@@ -6,62 +6,10 @@
         auth()->id() == $msg->from_id ||
         App\Unlock::where('message_id', $msg->id)->where('payment_status', 'Paid')->where('tipper_id', auth()->id())->exists())
 
-        <div class="row">
+        <div class="mediaAttachmentContainer">
             @if($msgMedia->first()->lock_type == 'Paid' && auth()->id() == $msg->from_id)
-            <style>
-                .paidAttachment{
-                    position: absolute;
-                    z-index: 1;
-                    width:auto;
-                    padding: 0 10px;
-                    height:30px;
-                    @if($utype == 'fromUser')
-                    margin-left:-25px;
-                    top:0;
-                    @else
-                    right:10px;
-                    top:-10px;
-                    @endif
-                    background: #dc3545;
-                    border-radius: 10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color:#FFFFFF;
-                    font-size: 14px;
-                }
-                @media(max-width:767px){
-                    .paidAttachment{font-size:10px;}
-                }
-            </style>
-            <div class="paidAttachment">Paid Attachment ({{ opt('payment-settings.currency_symbol') . number_format($msgMedia->first()->lock_price,2) }})</div>
-                @elseif($msgMedia->first()->lock_type == 'Free' && auth()->id() == $msg->from_id)
-                <style>
-                    .freeAttachment{
-                        position: absolute;
-                        z-index: 1;
-                        width:auto;
-                        padding:0 10px;
-                        height:30px;
-                        @if($utype == 'fromUser')
-                        margin-left:-25px;
-                        top:0;
-                        @else
-                        right:10px;
-                        top:-10px;
-                        @endif
-                        background: #4caf50;
-                        border-radius: 10px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        color:#FFFFFF;
-                        font-size: 14px;
-                    }
-                    @media(max-width:767px){
-                        .freeAttachment{font-size:10px;}
-                    }
-                </style>
+                <div class="paidAttachment">Paid Attachment ({{ opt('payment-settings.currency_symbol') . number_format($msgMedia->first()->lock_price,2) }})</div>
+            @elseif($msgMedia->first()->lock_type == 'Free' && auth()->id() == $msg->from_id)    
                 <div class="freeAttachment">Free Attachment</div>
             @endif
             @foreach($msgMedia as $mm)
@@ -74,7 +22,7 @@
         @endif
     <div class="dropdown show z-9999">
 
-        <a href="javascript:void(0)" class="btn btn-primary btn-sm mb-2 dropdown-toggle" id="premiumPostsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a href="javascript:void(0)" class="btn btn-primary btn-sm dropdown-toggle" id="premiumPostsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             @lang('v19.unlockLinkTitle') {{ opt('payment-settings.currency_symbol') . number_format($msgMedia->first()->lock_price,2) }}
         </a>
 

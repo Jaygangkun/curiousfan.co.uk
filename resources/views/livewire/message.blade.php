@@ -154,26 +154,33 @@
                     {{ $msg->created_at->diffForHumans() }}
                 </div>
                 <div class="text-white p-2 rounded-right toMessage">
-                    {{  $msg->message }}
-                    <span class="btn delMessage"
-                            onclick="confirm('Are you sure you want to delete this message?') || event.stopImmediatePropagation()"
-                            wire:click="deleteMessage('{{ $msg->id }}', {{ auth()->id() }}, 'sender')"><i class="fa fa-trash"></i></span>
-
+                    <div class="toMessageTextWrap">
+                        {{  $msg->message }}
+                    </div>
                     @if($msg->media->count())
-                        <br>
-                        @include('messages.message-media', ['media' => $msg->media, 'msg' => $msg, 'utype' => 'toUser'])
+                        <div class="toMessageMediaWrap">
+                            @include('messages.message-media', ['media' => $msg->media, 'msg' => $msg, 'utype' => 'toUser'])
+                        </div>
                     @endif
+                    <div class="delMessageWrap">
+                        <span class="btn delMessage" onclick="confirm('Are you sure you want to delete this message?') || event.stopImmediatePropagation()" wire:click="deleteMessage('{{ $msg->id }}', {{ auth()->id() }}, 'sender')">
+                            <i class="fa fa-trash"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
         @else
             <div class="col-11 mt-3" style="margin-left: auto;">
                 {{--<div class="bg-secondary text-white p-2 rounded-left">--}}
                 <div class="fromMessage">
-                    {{ $msg->message }}
+                    <div class="fromMessageTextWrap">
+                        {{ $msg->message }}
+                    </div>
 
                     @if($msg->media->count())
-                        <br>
-                        @include('messages.message-media', ['media' => $msg->media, 'msg' => $msg, 'utype' => 'fromUser'])
+                        <div class="fromMessageMediaWrap">
+                            @include('messages.message-media', ['media' => $msg->media, 'msg' => $msg, 'utype' => 'fromUser'])
+                        </div>
                     @endif
                     <div class="delMessageFromWrap">
                         <span class="btn delMessageFrom" onclick="confirm('Are you sure you want to delete this message?') || event.stopImmediatePropagation()" wire:click="deleteMessage('{{ $msg->id }}', {{ auth()->id() }}, 'receiver')">

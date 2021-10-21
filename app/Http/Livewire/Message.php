@@ -112,7 +112,8 @@ class Message extends Component
             if (!$min)
                 $min = opt('minTipAmount', 1.99);
 
-            $this->validate(['unlockPrice' => 'required|numeric|between:' . '£' . $min . ',' . '£' . $max]);
+            // $this->validate(['unlockPrice' => 'required|numeric|between:' . '£' . $min . ',' . '£' . $max]);
+            $this->validate(['unlockPrice' => 'required|numeric|between:' . $min . ',' . $max]);
         }
         
 
