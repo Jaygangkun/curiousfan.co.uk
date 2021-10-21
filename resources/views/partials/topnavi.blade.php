@@ -2,7 +2,7 @@
   <a class="navbar-brand top-navbar-brand" href="@if(auth()->user()){{ route('feed') }}@else {{ route('home') }}@endif">
     @if($logo = opt('site_logo'))
       {{-- <img src="{{ config('app.url') }}/images/curiousfan-logo-new.svg" alt="logo" class="site-logo" style="width:180px;"/> --}}
-      <img src="{{ asset($logo) }}" alt="logo" class="site-logo" style="width:180px;"/>
+      <img src="{{ asset($logo) }}" alt="logo" class="site-logo"/>
     @else
       {{ opt( 'site_title' ) }}
     @endif

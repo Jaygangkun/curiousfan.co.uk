@@ -851,9 +851,49 @@ div:empty:before {
     flex-grow: 1;
     border: 0px;
     outline: none;
+    margin-right: 20px;
 }
 
 .top-navar-search-wrap .search-icon-wrap {
     color: #7f7f7f;
     margin-right: 10px;
+}
+
+.site-logo {
+    width: 180px;
+}
+
+@media screen and (max-width: 500px) {
+    .top-navar-search-wrap input {
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .top-navar-search-wrap input {
+        width: 100px;
+    }
+
+    .site-logo {
+        width: 140px;
+    }
+}
+
+@media screen and (max-width: 360px) {    
+
+    .top-navar-search-wrap {
+        padding: 5px 10px;
+    }
+
+    .top-navar-search-wrap input {
+        width: 100px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 320px) {    
+    .top-navar-search-wrap input {
+        width: 60px;
+        font-size: 14px;
+    }
 }

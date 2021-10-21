@@ -30,7 +30,7 @@
 
 -->
         <span class="search-icon-wrap"><i class="fas fa-search"></i></span>
-        <input class="form-control1 mr-sm-2 topSearch" type="search" placeholder="@lang('general.searchCreator')" aria-label="Search" wire:model.debounce.200ms="search">
+        <input class="form-control1 topSearch" type="search" placeholder="@lang('general.searchCreator')" aria-label="Search" wire:model.debounce.200ms="search">
         <div class="search-spinner" wire:loading>
             <i class="fas fa-spinner fa-spin"></i>
         </div>
