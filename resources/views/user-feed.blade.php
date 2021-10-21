@@ -3,6 +3,21 @@
 @section('seo_title') @lang('navigation.feed') - @endsection
 
 @section( 'content' )
+<div class="modal fade" id="becomeCreatorRequestSuccessPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="alert alert-success alert-dismissible">
+					<p><strong>Request Sent.</strong></p>
+					<p>You will receive a email when your account have been upgraded. </p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="white-smoke-bg pt-4 pb-3">
 <div class="container add-padding" >
 <div class="row">
@@ -132,7 +147,7 @@
 				dataType: 'json',
 				success: function(resp) {
 					if(resp.success) {
-						alert('Request Sent!');
+						$('#becomeCreatorRequestSuccessPopup').modal('toggle');
 						$('#becomeCreatorRequestBox').hide();
 						$('#findCreatorBox').show();
 					}
