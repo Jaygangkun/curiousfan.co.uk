@@ -398,6 +398,10 @@ img.singleAttachImg{
     position: relative;
 }
 
+.sidebarLinks {
+    display: none;
+}
+
 @media(max-width:767px){
     .paidAttachment{
         font-size:10px;
