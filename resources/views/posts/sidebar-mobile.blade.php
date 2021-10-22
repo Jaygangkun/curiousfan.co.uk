@@ -6,12 +6,12 @@
 				<a class="mycount-icon" href="{{  route('accountSettings') }}" data-toggle="tooltip" title="@lang('navigation.account')">
 					<i class="fas fa-cog fa-2x"></i>
 				</a>
-				<center>
+				<center class="pt-5">
 					<div class="profilePicSmall mt-3 ml-0">
 						<img src="{{ secure_image(auth()->user()->profile->profilePic, 75, 75) }}" alt="" class="img-fluid">
 					</div>
 				</center>
-				<div class="text-center text-secondary">
+				<div class="text-center text-secondary pb-3">
 					<h4 style="mt-1">
 						{{auth()->user()->profile->name}}
 					</h4>

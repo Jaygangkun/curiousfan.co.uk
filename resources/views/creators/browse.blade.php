@@ -6,7 +6,7 @@
 <div class="white-smoke-bg">
 <br/>
 
-<div class="container pt-3 pb-5">
+<div class="container pt-3 pb-5 add-padding">
     <h3 class="mb-4 text-center">@lang('homepage.browseCreators')</h3>
         @livewire('browse-creators', ['category' => $category])
     </div>
