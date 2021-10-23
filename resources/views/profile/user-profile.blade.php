@@ -52,11 +52,7 @@
 			</div>
 		
 	</div>
-@if($profile->user_id == auth()->user()->id)
-<div class="text-center">
-    <a class="btn btn-primary mt-4" style="border-radius:16px; padding:6px 15px;" href="/my-profile" role="button"><i class="far fa-edit mr-1"></i> Edit profile</a>
-</div>
-@endif
+
 </div>
 
 <div class="col-12 col-sm-8 col-md-9 col-lg-10 text-center text-sm-left">
@@ -66,6 +62,9 @@
 				<a href="{{ $profile->url }}">
 					{{ $profile->name }}
 				</a>
+				@if($profile->user_id == auth()->user()->id)
+					<a class="" style="border-radius:16px; margin-left: 10px" href="/my-profile" role="button"><i style="font-size: 18px" class="far fa-edit"></i></a>
+				@endif
 			</h4>
 			<a href="{{ $profile->url }}">
 				{{ $profile->handle }} @if($profile->isVerified == 'Yes') <i class="fas fa-check-circle text-primary"></i> @endif  
@@ -74,16 +73,16 @@
 			@php
               	$customD = json_decode($profile->custom_data);
 			@endphp
-			<i class="far fa-grin-stars mr-1"></i> @if(@$customD->fans && $customD->fans > @$profile->fans_count){{ @$customD->fans + $profile->fans_count }} @else {{ $profile->fans_count }} @endif @lang('general.paid-fans')
-			<br>
-			
-			<i class="fas fa-users"></i> @if(@$customD->subscribers && @$customD->subscribers > $profile->followers->count()){{ @$customD->subscribers + $profile->followers->count()  }} @else {{ @$profile->followers->count() }} @endif @lang('general.free-subscribers')
-			<br>
-
-			<i class="fas fa-align-left" data-toggle="tooltip" title="Total Posts"></i> {{ $profile->posts->count() }} &nbsp;
-			<i class="fas fa-image" data-toggle="tooltip" title="Images"></i> {{ $profile->posts->where('media_type', 'Image')->count() }} &nbsp;
-			<i class="fas fa-music" data-toggle="tooltip" title="Audios"></i> {{ $profile->posts->where('media_type', 'Audio')->count() }} &nbsp;
-			<i class="fas fa-video" data-toggle="tooltip" title="Videos"></i> {{ $profile->posts->where('media_type', 'Video')->count() }} 
+			<div>
+				<i class="far fa-grin-stars mr-1"></i> @if(@$customD->fans && $customD->fans > @$profile->fans_count){{ @$customD->fans + $profile->fans_count }} @else {{ $profile->fans_count }} @endif @lang('general.paid-fans')&nbsp;&nbsp;
+				<i class="fas fa-users"></i> @if(@$customD->subscribers && @$customD->subscribers > $profile->followers->count()){{ @$customD->subscribers + $profile->followers->count()  }} @else {{ @$profile->followers->count() }} @endif @lang('general.free-subscribers')&nbsp;&nbsp;
+			</div>
+			<div>
+				<i class="fas fa-align-left" data-toggle="tooltip" title="Total Posts"></i> {{ $profile->posts->count() }} &nbsp;&nbsp;
+				<i class="fas fa-image" data-toggle="tooltip" title="Images"></i> {{ $profile->posts->where('media_type', 'Image')->count() }} &nbsp;
+				<i class="fas fa-music" data-toggle="tooltip" title="Audios"></i> {{ $profile->posts->where('media_type', 'Audio')->count() }} &nbsp;
+				<i class="fas fa-video" data-toggle="tooltip" title="Videos"></i> {{ $profile->posts->where('media_type', 'Video')->count() }} 
+			</div>
 		</div>
 
 		<div class="col-12 col-sm-5">
@@ -180,18 +179,14 @@
 		</div>
 		<div class="col-12 col-sm-1">
 			@if($profile->user_id != auth()->user()->id)
-				<div class="three-dot-dropdown">
-					<!-- three dots -->
-					<ul class="dropbtn icons btn-right showLeft" id="profileExtraDropdownBtn">
-						<li></li>
-						<li></li>
-						<li></li>
-					</ul>
-					<!-- menu -->
-					<div id="profileExtraDropdown" class="three-dot-dropdown-content">
-						<a href="javascript:reportBlockUser('Block', {{ $profile->user_id }}, '{{ $profile->name }}')" id="block_user_btn">Block User</a>
-						<a href="javascript:reportBlockUser('Report', {{ $profile->user_id }}, '{{ $profile->name }}')" id="report_user_btn">Report User</a>
-						<a href="javascript:reportBlockUser('Block & Report', {{ $profile->user_id }}, '{{ $profile->name }}')" id="block_and_report_user_btn">Block & Report User</a>
+				<div class="dropdown profile-action-dropdown">
+					<button class="dropbtn dropdown-toggle" type="button" id="profile_action_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-ellipsis-v"></i>
+					</button>
+					<div class="dropdown-menu" aria-labelledby="profile_action_dropdown">
+						<a class="dropdown-item" href="javascript:reportBlockUser('Block', {{ $profile->user_id }}, '{{ $profile->name }}')" id="block_user_btn">Block User</a>
+						<a class="dropdown-item" href="javascript:reportBlockUser('Report', {{ $profile->user_id }}, '{{ $profile->name }}')" id="report_user_btn">Report User</a>
+						<a class="dropdown-item" href="javascript:reportBlockUser('Block & Report', {{ $profile->user_id }}, '{{ $profile->name }}')" id="block_and_report_user_btn">Block & Report User</a>
 					</div>
 				</div>
 			@endif
