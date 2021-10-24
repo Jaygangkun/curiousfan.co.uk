@@ -37,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-			@if($showBecomeCreatorRequestBox)
+			@if(isset($showBecomeCreatorRequestBox) && $showBecomeCreatorRequestBox)
 				<div class="card mt-3" id="becomeCreatorRequestBox">
 					<div class="card-header">BECOME A CREATOR</div>
 					<div class="card-body">
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			@endif
-			<div class="card mt-3" id="findCreatorBox" style="@if(!$showFindCreatorBox) display: none @endif">
+			<div class="card mt-3" id="findCreatorBox" style="@if(isset($showFindCreatorBox) && !$showFindCreatorBox) display: none @endif">
 				<div class="card-header">FIND CREATORS YOU LOVE</div>
 				<div class="card-body">
 					<p>The creators you already love may be on Patreon - connect your social media to find them.</p>
