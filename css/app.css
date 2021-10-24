@@ -113,6 +113,7 @@ html,body {
 #main {
   overflow:auto;
   padding:60px 0px;
+  padding-top: 77px;
 }
 body {
   font-family: 'Lato', sans-serif;
@@ -871,6 +872,14 @@ div:empty:before {
     display: none;
 }
 
+.saveCoverPic i{
+    display: none;
+}
+@media screen and (max-width: 1200px) {
+    .coverPic {
+        height: 300px;
+    }
+}
 @media screen and (max-width: 992px) {
     .notification-nav.navbar-nav .nav-link svg {
         display: inline-block;
@@ -886,6 +895,37 @@ div:empty:before {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .profile-action-dropdown {
+        display: none;
+    }
+
+    .coverPic {
+        height: 260px;
+    }
+
+    #coverPic .cr-slider {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .saveCoverPic i{
+        display: block;
+    }
+
+    .saveCoverPic span{
+        display: none;
+    }
+
+    .coverPic {
+        height: 240px;
+    }
+
+    .uploadBtn {
+        display: none;
+    }
+}
 @media screen and (max-width: 500px) {
     .top-navar-search-wrap input {
         width: 113px;
@@ -897,6 +937,11 @@ div:empty:before {
     .site-logo {
         width: 140px;
     }
+
+    .coverPic {
+        height: 180px;
+    }
+
 }
 
 @media screen and (max-width: 387px) {    
