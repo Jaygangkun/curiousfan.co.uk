@@ -21,7 +21,6 @@
 						</div>
 						<button class="text-center saveCoverPic btn btn-success" style="position: absolute; right: 70px; bottom: 10px;z-index: 99;">
 							<span>Save Cover Picture</span>
-							<i class="fas fa-save"></i>
 						</button>
 						@else
 							<a class="coverPic" data-fancybox href="{{ asset('public/uploads/' . $profile->coverPicture) }}"></a>

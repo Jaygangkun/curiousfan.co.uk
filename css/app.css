@@ -872,9 +872,6 @@ div:empty:before {
     display: none;
 }
 
-.saveCoverPic i{
-    display: none;
-}
 @media screen and (max-width: 1200px) {
     .coverPic {
         height: 300px;
@@ -910,14 +907,6 @@ div:empty:before {
 }
 
 @media screen and (max-width: 576px) {
-    .saveCoverPic i{
-        display: block;
-    }
-
-    .saveCoverPic span{
-        display: none;
-    }
-
     .coverPic {
         height: 240px;
     }
