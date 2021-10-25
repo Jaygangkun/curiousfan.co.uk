@@ -914,6 +914,10 @@ div:empty:before {
     .uploadBtn {
         display: none;
     }
+
+    .profile-edit-btn {
+        display: none;
+    }
 }
 @media screen and (max-width: 500px) {
     .top-navar-search-wrap input {
@@ -930,7 +934,6 @@ div:empty:before {
     .coverPic {
         height: 180px;
     }
-
 }
 
 @media screen and (max-width: 387px) {    

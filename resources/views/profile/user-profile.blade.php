@@ -60,7 +60,7 @@
 									{{ $profile->name }}
 								</a>
 								@if($profile->user_id == auth()->user()->id)
-									<a class="" style="border-radius:16px; margin-left: 10px" href="/my-profile" role="button"><i style="font-size: 18px" class="far fa-edit"></i></a>
+									<a class="profile-edit-btn" style="border-radius:16px; margin-left: 10px" href="/my-profile" role="button"><i style="font-size: 18px" class="far fa-edit"></i></a>
 								@endif
 							</h4>
 							<a href="{{ $profile->url }}">
