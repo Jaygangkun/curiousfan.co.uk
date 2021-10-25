@@ -10,8 +10,8 @@
 		<div class="container add-padding">
 			<div class="row">
 				<div class="col-md-12">
+					@if($profile->user_id == auth()->user()->id)
 					<div class="coverPic" id="renderCoverPic" style="border-radius: 0 0 12px 12px;">
-						@if($profile->user_id == auth()->user()->id)
 						<div class="coverPic-wrap">
 							<div id="coverPic"></div>
 						</div>
@@ -22,10 +22,11 @@
 						<button class="text-center saveCoverPic btn btn-success" style="position: absolute; right: 70px; bottom: 10px;z-index: 99;">
 							<span>Save Cover Picture</span>
 						</button>
-						@else
-							<a class="coverPic" data-fancybox href="{{ asset('public/uploads/' . $profile->coverPicture) }}"></a>
-						@endif
 					</div>
+					@else
+						<div class="coverPic" style="border-radius: 0 0 12px 12px;" data-fancybox href="{{ asset('public/uploads/' . $profile->coverPicture) }}">
+						</div>
+					@endif
 				</div>
 			</div>
 			<div class="row">
@@ -266,6 +267,7 @@
 .coverPic {
 	background-image: url('{{ asset('public/uploads/' . $profile->coverPicture) }}');
 }
+
 .viewCoverPic{width:100%;height:100%;display:block;}
 </style>
 @endpush
@@ -341,6 +343,14 @@ button:focus {
 
 #renderCoverPic {
 	position: relative;
+}
+</style>
+@endpush
+@else
+@push( 'extraCSS' )
+<style>
+.coverPic {
+	cursor: pointer;
 }
 </style>
 @endpush
