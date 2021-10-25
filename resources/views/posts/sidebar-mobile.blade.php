@@ -51,7 +51,7 @@
 			<div class="card mt-3" id="findCreatorBox" style="@if(isset($showFindCreatorBox) && !$showFindCreatorBox) display: none @endif">
 				<div class="card-header">FIND CREATORS YOU LOVE</div>
 				<div class="card-body">
-					<p>The creators you already love may be on Patreon - connect your social media to find them.</p>
+					<p>The creators you love may already be on CuriousFan - Browse creators to find them.</p>
 					<div class="text-center">
 						<a href="/browse-creators" class="btn btn-primary" style="padding: 5px 20px 5px 20px; font-size: 16px; border-radius: 16px;">Find Creators</a>
 					</div>
