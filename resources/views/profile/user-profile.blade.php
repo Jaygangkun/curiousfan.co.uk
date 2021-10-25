@@ -490,13 +490,11 @@ button:focus {
 			let submitData = new FormData();
 			submitData.append('coverPic', resp);
 			submitData.append('img_type', "cover_image");
+			submitData.append('_token', "{{ csrf_token() }}");
+			
 			$.ajax({
 				url:'{{ config('app.url') }}/profile/coverImageUpdate',
 				type:'POST',
-				// data:{
-				// 	"coverPic":resp, 
-				// 	"img_type":"cover_image"
-				// },
 				data: submitData,
 				cache: false,
 				async:false,
