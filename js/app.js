@@ -452,19 +452,11 @@ $(function () {
 	// image upload btn
 	$(".imageUploadLink").click(function () {
 	    var count = $('.multipleImgUpload').length;
-		if(count == 1){
-			$(".multipleImgUpload").last().trigger('click');
+		$(".multipleImgUpload").last().trigger('click');
 	    
-			$(".multipleImgUpload").last().on('change', function () {
-				checkTotalSize(this);
-			});
-		}else{
-			$("#MultiFile1_F" + (count - 1)).trigger('click');
-	    
-			$("#MultiFile1_F" + (count - 1)).on('change', function () {
-				checkTotalSize(this);
-			});
-		}
+		$(".multipleImgUpload").last().on('change', function () {
+			checkTotalSize(this);
+		});
 	});
 
 	

@@ -64,7 +64,7 @@
 					<h5 class="d-inline"><i class="fas fa-lock text-warning"></i></h5>
 				</a>
 
-				<input type="file" name="imageUpload[]" accept="image/*" class="multipleImgUpload with-preview d-none" multiple="multiple" data-maxfile="10240" maxlength="5" data-maxsize="5120">
+				<input type="file" name="imageUpload[]" accept="image/*" class="multipleImgUpload with-preview d-none" multiple="multiple" data-maxfile="1073741824" data-maxsize="1073741824">
 				<input type="file" name="videoUpload" accept="video/mp4,video/webm,video/ogg,video/quicktime" class="videoFileUpload d-none">
 				<input type="file" name="audioUpload" accept="audio/mpeg" class="audioFileUpload d-none">
 				<input type="file" name="zipUpload" accept="zip,application/zip,application/x-zip,application/x-zip-compressed,.zip" class="zipFileUpload d-none">
@@ -117,7 +117,6 @@
 
 		$('.multipleImgUpload').MultiFile({
 			accept:'gif|jpg|png|jpeg', 
-			max:10, 
 			separator:false, 
 			STRING: { 
 				remove:'X', 
