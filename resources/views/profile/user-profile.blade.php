@@ -459,8 +459,8 @@ button:focus {
 
 	$uploadCrop = $('#coverPic').croppie({
 		viewport: {
-			width: $('#renderCoverPic').width() * 2 / 3,
-			height: $('#renderCoverPic').height() - 30
+			width: $('#renderCoverPic').width(),
+			height: $('#renderCoverPic').height()
 		},
 		enableExif: true
 	});
@@ -471,16 +471,30 @@ button:focus {
 
 	$('.saveCoverPic').on('click', function (ev) {
 		$uploadCrop.croppie('result', {
-			type: 'canvas',
+			type: 'base64',
 			size: 'viewport'
 		}).then(function (resp) {
 			/*popupResult({
 				src: resp
 			});*/
+			let submitData = new FormData();
+			submitData.append('coverPic', resp);
+			submitData.append('img_type', "cover_image");
 			$.ajax({
 				url:'{{ config('app.url') }}/profile/coverImageUpdate',
 				type:'POST',
-				data:{"coverPic":resp, "img_type":"cover_image", "_token": "{{ csrf_token() }}"},
+				// data:{
+				// 	"coverPic":resp, 
+				// 	"img_type":"cover_image"
+				// },
+				data: submitData,
+				cache: false,
+				async:false,
+                processData: false,
+                contentType: false,
+				headers: { 
+					'X-CSRF-Token' : "{{ csrf_token() }}" 
+				},
 				success:function(data){
 					$('#coverPic,.saveCoverPic').fadeOut();
 					$('.coverPic').css('background-image', 'url("' + data.updated_pic + '")');
