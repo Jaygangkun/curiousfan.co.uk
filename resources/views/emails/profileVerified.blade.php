@@ -11,5 +11,5 @@ You may start configuring your membership fee, withdrawal methods and begin taki
 
 Regards,<br>
 {{ env('APP_NAME') }}
-@elseif
+@endif
 @endcomponent

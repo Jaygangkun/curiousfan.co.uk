@@ -37,6 +37,7 @@ use Stripe\Subscription as StripeSubscription;
 use App\WebsiteMessageCenter;
 
 use App\Notifications\ProfileApprovedNotification;
+use App\Notifications\ProfileRejectedNotification;
 use App\Notifications\AdminNotify;
 
 class Admin extends Controller
