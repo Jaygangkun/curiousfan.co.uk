@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="{{ config('app.url') }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ config('app.url') }}/fa/css/all.min.css">
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,700' rel='stylesheet' type='text/css'>
     <!--<link rel="Stylesheet" type="text/css" href="demo/prism.css" />-->
     <link rel="Stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/bower_components/sweetalert/dist/sweetalert.css" />
@@ -80,7 +81,7 @@
                         <span>Upload Image</span>
                         <input type="file" id="profilePicture" value="Choose a file" accept="image/*" />
                     </a>
-                    <button class="btn btn-success profilePicture-result">Save Image</button>
+                    <button class="btn btn-success profilePicture-result"><i class="processing fas fa-spinner fa-spin" style="margin-right: 10px; display: none"></i>Save Image</button>
                 </div>
             </div>
             <div class="col-md-12" style="margin-top:20px; margin-bottom: 50px; ">
@@ -99,6 +100,7 @@
 <script>window.jQuery || document.write('<script src="bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
 <!--<script src="demo/prism.js"></script>-->
 <script src="{{ config('app.url') }}/js/bootstrap.min.js"></script>
+<script src="{{ config('app.url') }}/css/fa/js/all.min.js"></script>
 <script src="https://foliotek.github.io/Croppie/bower_components/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{ config('app.url') }}/js/croppie/croppie.js"></script>
 <!--<script src="demo/demo.js"></script>-->
@@ -162,20 +164,32 @@
     $('#profilePicture').on('change', function () { readFile(this); });
     $('.profilePicture-result').on('click', function (ev) {
         $uploadCrop.croppie('result', {
-            type: 'canvas',
-            size: 'viewport'
+            type: 'blob',
+            size: 'viewport',
+            format: 'png'
         }).then(function (resp) {
             /*popupResult({
                 src: resp
             });*/
+            let submitData = new FormData();
+			submitData.append('coverPic', resp);
+			submitData.append('img_type', "cover_image");
+			submitData.append('_token', "{{ csrf_token() }}");
+            $('.profilePicture-result .processing').show();
             $.ajax({
                 url:'{{ config('app.url') }}/profile/profileImageUpdate',
                 type:'POST',
-                data:{"profilePic":resp, "img_type":"profile_image", "_token": "{{ csrf_token() }}"},
+                data: submitData,
+                processData: false,
+                contentType: false,
+				headers: { 
+					'X-CSRF-Token' : "{{ csrf_token() }}" 
+				},
                 success:function(data){
                     /*$('#imageModel').modal('hide');*/
                     //alert('Crop image has been uploaded');
                     //window.top.location.reload(true);
+                    $('.profilePicture-result .processing').hide();
                     window.parent.closeModal(data.updated_pic);
                 }
             });

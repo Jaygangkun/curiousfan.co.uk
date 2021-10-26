@@ -20,7 +20,7 @@
 							<input type="file" id="uploadCoverPic" value="Choose a file" accept="image/*" />
 						</div>
 						<button class="text-center saveCoverPic btn btn-success" style="position: absolute; right: 70px; bottom: 10px;z-index: 99;">
-							<span>Save Cover Picture</span>
+							<span><i class="processing fas fa-spinner fa-spin" style="margin-right: 10px; display: none"></i>Save Cover Picture</span>
 						</button>
 					</div>
 					@else
@@ -481,8 +481,9 @@ button:focus {
 
 	$('.saveCoverPic').on('click', function (ev) {
 		$uploadCrop.croppie('result', {
-			type: 'base64',
-			size: 'viewport'
+			type: 'blob',
+			size: 'viewport',
+			format: 'png'
 		}).then(function (resp) {
 			/*popupResult({
 				src: resp
@@ -492,12 +493,12 @@ button:focus {
 			submitData.append('img_type', "cover_image");
 			submitData.append('_token', "{{ csrf_token() }}");
 			
+			$('.saveCoverPic .processing').show();
+
 			$.ajax({
 				url:'{{ config('app.url') }}/profile/coverImageUpdate',
 				type:'POST',
 				data: submitData,
-				cache: false,
-				async:false,
                 processData: false,
                 contentType: false,
 				headers: { 
@@ -505,6 +506,7 @@ button:focus {
 				},
 				success:function(data){
 					$('#coverPic,.saveCoverPic').fadeOut();
+					$('.saveCoverPic .processing').hide();
 					$('.coverPic').css('background-image', 'url("' + data.updated_pic + '")');
 				}
 			});

@@ -478,6 +478,7 @@ class ProfileController extends Controller
         return view('profile.imageIframe', compact('user', 'p'));
     }
     public function saveProfilePic(Request $r){
+        
         $updatedImg = "";
         // create profile if it doesn't exist
         if (!$p = \App\Profile::where('user_id', auth()->user()->id)->first())
@@ -486,11 +487,8 @@ class ProfileController extends Controller
         if($p->user_id = auth()->user()->id) {
             // if cover image uploaded
             if ($r->coverPic && $r->img_type == 'cover_image') {
-                // set cover pic
-                $image = $r->coverPic;
-                list($type, $image) = explode(';', $image);
-                list(, $image) = explode(',', $image);
-                $image = base64_decode($image);
+                // set cover pic                
+                $image = file_get_contents($_FILES['coverPic']['tmp_name']);
                 $fileN = 'coverpic-' . $p->id;
                 $image_name = $fileN . '-' . time() . '.png';
                 $path = public_path('uploads/coverPics/' . $image_name);
@@ -503,10 +501,7 @@ class ProfileController extends Controller
             }
             // if profile image uploaded
             if ($r->profilePic && $r->img_type == 'profile_image') {
-                $image = $r->profilePic;
-                list($type, $image) = explode(';', $image);
-                list(, $image) = explode(',', $image);
-                $image = base64_decode($image);
+                $image = file_get_contents($_FILES['coverPic']['tmp_name']);
                 $fileN = 'profile-' . $p->id;
                 $image_name = $fileN . '-' . time() . '.png';
                 $path = public_path('uploads/profilePics/' . $image_name);
