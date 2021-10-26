@@ -11,6 +11,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -34,7 +35,7 @@ class Message extends Component
     public $mobileProfileId;
     public $unreadMessageCount;
     public $massMessage;
-    public $massMessageUsers;
+    public $massMessageContacts;
 
     protected $listeners = ['scrollTolast', 'emojioneArea'];
 
@@ -261,7 +262,8 @@ class Message extends Component
 
     public function clickConversation($user){
         $this->openConversation($user);
-        $this->emit('scroll-to-last');
+        // $this->emit('scroll-to-last');
+        $this->emit('scroll-to-unread-message');
     }
 
     public function openConversation($user)
@@ -281,10 +283,10 @@ class Message extends Component
     public function render()
     {
         // get followers and follows
-        $people = $this->getPeople();
+        $contacts = $this->getContacts();
         $messages = $this->messages;
         //$unreadMessagesByUser = getUnreadMessages();
-        $m = WebsiteMessageCenter::findOrFail(1);
+        $messageCenter = WebsiteMessageCenter::findOrFail(1);
         $this->dispatchBrowserEvent('contentChanged');
         // get last messages toward this user
         $unreadMsg = Msg::select('message', 'from_id', 'is_read','to_id')
@@ -294,8 +296,10 @@ class Message extends Component
             ->get()
             ->unique('from_id');
 
-        $this->massMessageUsers = $people;
-        return view('livewire.message', compact('people', 'messages', 'unreadMsg','m'));
+        $this->massMessageContacts = $contacts;
+        $massMessageContacts = $contacts;
+        
+        return view('livewire.message', compact('contacts', 'messages', 'unreadMsg','messageCenter', 'massMessageContacts'));
     }
 
     public function uploadLink($eventType)
@@ -303,10 +307,10 @@ class Message extends Component
         $this->emit($eventType);
     }
 
-    private function getPeople()
+    private function getContacts()
     {
         // get followers and follows with total messages
-        $people = auth()->user()
+        $subscriptions = auth()->user()
             ->whereHas('followings', function ($q) {
                 $q->where('following_id', auth()->id());
             })
@@ -314,8 +318,34 @@ class Message extends Component
                 $q->where('follower_id', auth()->id());
             })
             ->get();
+        // sort people for unread message
+        $recentMessageContacts = Msg::select('from_id', 'to_id', DB::raw('MAX(id) as id'))
+            ->where('to_id', auth()->id())
+            ->orderByDesc('id')
+            ->groupBy('from_id')
+            ->get();
+            // ->unique('from_id');
+        
+        $messagedSubscriptions = [];
+        $recentContactsIds = [];
+        foreach($recentMessageContacts as $recentMessageContact) {
+            $recentContactsIds[] = $recentMessageContact->from_id;
 
-        return $people;
+            foreach($subscriptions as $subscription) {
+                if($subscription->id == $recentMessageContact->from_id) {
+                    $messagedSubscriptions[] = $subscription;
+                }
+            }
+        }
+
+        $noMessagedSubscriptions = [];
+        foreach($subscriptions as $subscription) {
+            if(!in_array($subscription->id, $recentContactsIds)) {
+                $noMessagedSubscriptions[] = $subscription;
+            }
+        }
+
+        return array_merge($messagedSubscriptions, $noMessagedSubscriptions);
     }
 
     public function getMessages($user)
@@ -352,7 +382,7 @@ class Message extends Component
     {
 
         // add the new msg to db
-        foreach($this->massMessageUsers as $user ) {
+        foreach($this->massMessageContacts as $user ) {
             $msg = new Msg;
             $msg->from_id = auth()->id();
             $msg->to_id = $user->id;

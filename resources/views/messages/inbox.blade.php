@@ -43,6 +43,19 @@
         var elem = document.getElementById('messages-container');
         elem.scrollTop = elem.scrollHeight;
     });
+    
+    window.livewire.on('scroll-to-unread-message', function () {
+        var elem = document.getElementById('messages-container');
+        
+        var unreadMessage = $('#messages-container').find('.messageRowReadNo');
+        if(unreadMessage.length > 0) {
+            elem.scrollTop = $(unreadMessage[0]).position().top;
+        }
+        else {
+            elem.scrollTop = elem.scrollHeight;
+        }
+        
+    });
     // listen to image upload click
     window.livewire.on('imageUploadClicked', function() {
         $(".multipleImgUpload").trigger('click');

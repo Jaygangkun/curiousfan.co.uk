@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.3000ms>
     <div class="alert alert-success alert-dismissible" id="massMessageAlertSuccess" style="display:none">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         Success Sent!
@@ -16,7 +16,7 @@
         <div class="row d-flex d-md-none">
             <div class="col-md-12">
                 <ul class="box-gridmobPic">
-                    @foreach($people as $p)
+                    @foreach($contacts as $p)
                     <li class="@if($toUserId == $p->id) selectedLi @endif">
                         <a class="@if($p->isOnline()) profilePicOnlineBob @else profilePicOfflineBob @endif" wire:click="clickConversation({{ $p->id }})">
                             <img src="{{  $p->profile->profilePicture }}" alt="" width="50" height="50" class="box-img" style="border-radius: 50%;border:2px solid @if($p->isOnline()) #4caf50; @else #727272; @endif">
@@ -36,7 +36,7 @@
                 <select class="form-control" wire:model="mobileProfileId">
                 --}}{{--<option value="" @if($toUserId == $p->id) selected @endif>@lang('v19.selectRecipient')</option>--}}{{--
                 <option value="{{ $toUserId }}" selected="selected">{{ $toName }}</option>
-                @forelse($people as $p)
+                @forelse($contacts as $p)
                     <option value="{{ $p->id }}" @if($toUserId == $p->id) selected @endif>{{  $p->profile->handle }} ({{ $p->profile->name }})</option>
                 @empty
                     <option value="">@lang('profile.noSubscriptions')</option>
@@ -67,7 +67,8 @@
                     }
                 </style>
                 
-                @forelse($people as $p)
+                
+                @forelse($contacts as $p)
                     <div class="row no-gutters pt-2 pb-2 border-top" wire:click="clickConversation({{ $p->id }})" style="cursor:pointer;@if($toUserId == $p->id)background: #eee;@endif">
                         <div class="col-12 col-sm-12 col-md-2">
                             <div class="profilePicXS mt-0 ml-0 mr-2 ml-2 shadow-sm">
@@ -108,7 +109,7 @@
                     </div>
                 @empty
                     @lang('profile.noSubscriptions')
-                @endforelse
+                @endforelse                
             </div>
 
             <div class="col-12 col-sm-8 col-md-8 col-lg-8 border-top" id="messages-container">
@@ -204,10 +205,10 @@
         @if(isset($toName) AND !empty($toName))
             <div class="row no-gutters mobHeightTxta">
                 <div class="col-12 offset-0 col-sm-8 offset-sm-4 col-md-8 offset-md-4 col-lg-8 offset-lg-4">
-                    <form wire:submit.prevent="sendMessage">
+                    <form>
                         <div class="containerTextarea">
-                            <textarea name="message" id="message-inp" placeholder="Type a message" data-id="" class="" wire:model.lazy="message" wire:ignore >@if($message){{ $message }}@endif</textarea>
-                            <button type="submit" class="sendB">
+                            <textarea name="message" id="message-inp" placeholder="Type a message" data-id="" class="" wire:model.lazy="message" wire:keydown.enter="sendMessage" wire:ignore >@if($message){{ $message }}@endif</textarea>
+                            <button class="sendB" wire:click="sendMessage">
                                 <i class="iconSend fas fa-paper-plane"></i>
                             </button>
                         </div>
@@ -234,8 +235,8 @@
                                             <h5 class="d-inline"><i class="fas fa-file-archive"></i></h5>
                                         </a>
                                     @else
-                                        @if($m->status == 1)
-                                            <p>{{ $m->msg }}</p>
+                                        @if($messageCenter->status == 1)
+                                            <p>{{ $messageCenter->msg }}</p>
                                         @endif
                                     @endif
 
@@ -330,7 +331,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="massMessagesList">
-                    @forelse($massMessageUsers as $p)
+                    @forelse($massMessageContacts as $p)
                         <div class="row no-gutters pt-2 pb-2 border-top">
                             <div class="col-12 col-sm-12 col-md-2">
                                 <div class="profilePicXS mt-0 ml-0 mr-2 ml-2 shadow-sm">
