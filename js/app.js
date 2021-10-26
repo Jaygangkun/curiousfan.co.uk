@@ -664,7 +664,11 @@ $(function () {
 
 					$("#creatEditablePost").html('');
 					$(".emojionearea-editor").html('');
-					$('.uploadName').text('');
+					// $('.uploadName').text('');
+					$('.fVideoName').text('');
+					$('.fAudioName').text('');
+					$('.fZipName').text('');
+					
 					$("span.MultiFile-label").remove();
 
 					$('input[name=imageUpload]').val('');
